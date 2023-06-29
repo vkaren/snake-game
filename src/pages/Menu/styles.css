@@ -1,0 +1,21 @@
+.menu-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.menu-header {
+  width: 50%;
+  text-align: center;
+}
+.menu-header--img {
+  width: 35%;
+}
+h1 {
+  font-size: 2rem;
+}
+.menu-button--play {
+  width: 30%;
+  min-width: 100px;
+}
