@@ -1,3 +1,5 @@
+import "./styles.css";
+
 class Game {
   constructor() {
     this.container = document.createElement("section");
@@ -36,17 +38,18 @@ class Game {
 
   createGameOverMsg() {
     const gameOverMsg = document.createElement("div");
-    gameOverMsg.setAttribute("class", "game-msg");
-    gameOverMsg.setAttribute("class", "hidden");
+    gameOverMsg.setAttribute("class", "game-msg hidden");
 
     const gameOverP = document.createElement("p");
+    gameOverP.setAttribute("class", "game-msg--over");
     gameOverP.textContent = "GAME OVER";
 
     const highScoreP = document.createElement("p");
+    highScoreP.setAttribute("class", "game-msg--highScore");
     highScoreP.textContent = "High Score: ";
 
     const highScoreVal = document.createElement("span");
-    highScoreVal.setAttribute("class", "game-msg--highScore");
+    highScoreVal.setAttribute("class", "highScore-span");
     highScoreVal.textContent = "0";
 
     const playAgainBtn = document.createElement("button");
@@ -63,10 +66,10 @@ class Game {
 
   createGameButtons() {
     const buttonsValue = {
-      ArrowUp: "↑",
-      ArrowDown: "↓",
-      ArrowLeft: "←",
-      ArrowRight: "→",
+      moveUp: "↑",
+      moveDown: "↓",
+      moveLeft: "←",
+      moveRight: "→",
     };
     const container = document.createElement("div");
     container.setAttribute("class", "game-btns");
@@ -74,7 +77,7 @@ class Game {
     for (let key in buttonsValue) {
       const button = document.createElement("button");
 
-      button.setAttribute("id", key);
+      button.setAttribute("class", key);
       button.textContent = buttonsValue[key];
       // button.addEventListener("click", this.game.moveSnake);
 

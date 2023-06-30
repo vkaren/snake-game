@@ -1,0 +1,72 @@
+.game-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.game-score {
+  position: absolute;
+  top: 3%;
+  left: 9%;
+  font-size: 2rem;
+}
+
+.game-score::before {
+  content: url("@icons/apple.png");
+  position: relative;
+  top: 5px;
+}
+
+.game-canvas {
+  width: 90%;
+  margin: 0 auto;
+  border: 5px double;
+  border-radius: 5px;
+}
+
+.game-msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: calc(45% - 80px);
+  left: calc(50% - 22.5%);
+  width: 45%;
+  height: 25%;
+  min-height: 160px;
+  text-align: center;
+}
+.game-msg--over {
+  font-size: 2rem;
+}
+
+.game-msg--highScore {
+  font-size: 1.5rem;
+}
+
+.game-btns {
+  display: grid;
+  grid-template-columns: repeat(3, 25%);
+  grid-template-rows: repeat(2, auto);
+  grid-gap: 0.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.game-btns .moveUp {
+  grid-column: 2/3;
+}
+
+.game-btns .moveDown {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+.game-btns .moveLeft {
+  grid-column: 1/2;
+}
+
+.game-btns .moveRight {
+  grid-column: 3/4;
+}
