@@ -1,12 +1,11 @@
+import Game from "@pages/Game";
+
 const app = document.querySelector("#app");
 
-function GameStart() {
-  this.hasGameStarted = false;
+function playGame() {
+  const gamePage = new Game();
+
+  app.replaceChildren(gamePage.render());
 }
-GameStart.prototype.setGameStarted = function () {
-  this.hasGameStarted = true;
-};
 
-const gameStart = new GameStart();
-
-export { app, gameStart };
+export { app, playGame };

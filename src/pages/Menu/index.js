@@ -1,5 +1,6 @@
 import snakeIcon from "@icons/snake.png";
 import "./styles.css";
+import { playGame } from "@utils/globals";
 
 class Menu {
   constructor() {
@@ -37,7 +38,9 @@ class Menu {
     const button = document.createElement("button");
     button.setAttribute("class", "menu-button--play");
     button.textContent = "Play";
-    // button.addEventListener("click", playGame);
+
+    button.addEventListener("click", playGame);
+
     return button;
   }
 }
