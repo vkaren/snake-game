@@ -1,12 +1,15 @@
 import Game from "@pages/Game";
 
 const app = document.querySelector("#app");
-const gameCanvas = document.querySelector(".game-canvas");
+let gameCanvas;
 
 function playGame() {
   const gamePage = new Game();
 
   app.replaceChildren(gamePage.render());
+
+  let canvasElem = document.querySelector(".game-canvas");
+  gameCanvas = canvasElem.getContext("2d");
 }
 
 function fillGameCanvas({ color, x, y, width, height }) {
