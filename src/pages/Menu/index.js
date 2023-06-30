@@ -1,5 +1,5 @@
+import snakeIcon from "@icons/snake.png";
 import "./styles.css";
-import snakeIcon from "../../assets/icons/snake.png";
 
 class Menu {
   constructor() {
