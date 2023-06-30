@@ -43,8 +43,6 @@ section {
   max-width: 500px;
   max-height: 500px;
   background: var(--green);
-  border: 5px double var(--light-black);
-  border-radius: 10px;
 }
 
 button {
@@ -62,4 +60,8 @@ button:hover {
 
 button:active {
   transform: scale(1);
+}
+
+.hidden {
+  opacity: 0;
 }
