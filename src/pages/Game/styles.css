@@ -6,8 +6,8 @@
 
 .game-score {
   position: absolute;
-  top: 3%;
-  left: 9%;
+  top: -6rem;
+  left: 3rem;
   font-size: 2rem;
 }
 
@@ -30,12 +30,16 @@
   justify-content: space-between;
   align-items: center;
   position: absolute;
+  z-index: 10;
   top: calc(45% - 80px);
   left: calc(50% - 22.5%);
   width: 45%;
   height: 25%;
   min-height: 160px;
   text-align: center;
+}
+.game-msg.hidden {
+  z-index: -10;
 }
 .game-msg--over {
   font-size: 2rem;
