@@ -1,11 +1,11 @@
 import Cell from "@components/Cell";
 
 class SnakeCell extends Cell {
-  constructor(id) {
+  constructor({ id, prevCell }) {
     super({
       // Set position
-      x: this.prevCell ? this.prevCell.oldPosition.x : null,
-      y: this.prevCell ? this.prevCell.oldPosition.y : null,
+      x: prevCell ? prevCell.oldPosition.x : 140,
+      y: prevCell ? prevCell.oldPosition.y : 140,
     });
     this.id = id;
     this.oldPosition = {
@@ -13,10 +13,10 @@ class SnakeCell extends Cell {
       y: this.position ? this.position.y : null,
     };
     this.nextCell = null;
-    this.prevCell = null;
+    this.prevCell = prevCell;
   }
 
-  updateCellPosition(velocity = null) {
+  updateCellPosition(velocity) {
     if (this.id === 0) {
       // Snake head
       this.position.x += velocity.x;
