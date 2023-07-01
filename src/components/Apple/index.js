@@ -1,11 +1,11 @@
 import Cell from "@components/Cell";
-import { drawImgGameCanvas, gameCanvas } from "@utils/globals";
+import { drawImgGameCanvas, canvasElem } from "@utils/globals";
 import appleIcon from "@icons/apple.png";
 
 class Apple extends Cell {
   constructor() {
     super({
-      // Set position
+      // Set default position
       x: 140,
       y: 40,
     });
@@ -14,8 +14,7 @@ class Apple extends Cell {
   }
 
   paint() {
-    const x = this.position.x;
-    const y = this.position.y;
+    const { x, y } = this.position;
     const { width, height } = this.size;
 
     const draw = { image: this.image, x, y, width, height };
@@ -31,7 +30,7 @@ class Apple extends Cell {
   }
 
   getRandomPosition() {
-    const maxCellsOnCanvas = (gameCanvas.width - this.size.width) / 10;
+    const maxCellsOnCanvas = (canvasElem.width - this.size.width) / 10;
     const minCellsOnCanvas = 0;
     let randomPosition = Math.floor(
       Math.random() *
@@ -45,6 +44,13 @@ class Apple extends Cell {
     }
 
     return randomPosition * 10;
+  }
+
+  reset() {
+    this.position = {
+      x: this.defaultPosition.x,
+      y: this.defaultPosition.y,
+    };
   }
 }
 
