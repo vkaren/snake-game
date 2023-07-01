@@ -1,6 +1,6 @@
+import { playGame } from "@utils/globals";
 import snakeIcon from "@icons/snake.png";
 import "./styles.css";
-import { playGame } from "@utils/globals";
 
 class Menu {
   constructor() {
