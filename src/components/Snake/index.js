@@ -66,8 +66,6 @@ class Snake {
 
       this.updateVelocity("x", velocity);
     }
-
-    this.updatePosition();
   }
 
   updateVelocity(axis, val) {

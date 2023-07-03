@@ -49,6 +49,7 @@ class Game {
         clearInterval(this.interval);
       }
       this.snake.move(event);
+      this.paintCanvas();
       this.interval = setInterval(this.paintCanvas, this.speed);
     }
   }
