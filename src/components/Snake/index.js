@@ -36,7 +36,7 @@ class Snake {
     this.size++;
   }
 
-  move(event) {
+  move(event = null) {
     let moveTo;
 
     const validKeys = {
@@ -46,7 +46,9 @@ class Snake {
       ArrowLeft: "moveLeft",
     };
 
-    if (event.type === "keydown" && validKeys[event.key]) {
+    if (!event) {
+      moveTo = "moveUp";
+    } else if (event.type === "keydown" && validKeys[event.key]) {
       moveTo = validKeys[event.key];
     } else if (event.type === "click") {
       moveTo = event.currentTarget.className;
