@@ -19,7 +19,7 @@ class Game {
     this.speed = speed;
     this.isGameOver = false;
     this.score = 0;
-    this.highScore = this.score;
+    this.highScore = localStorage.getItem("highScore") || 0;
     this.interval = null;
 
     this.moveSnake = this.moveSnake.bind(this);
@@ -99,8 +99,10 @@ class Game {
   getHighScore() {
     if (this.score > this.highScore) {
       this.highScore = this.score;
-      updateHighScore(this.highScore);
+      localStorage.setItem("highScore", this.highScore);
     }
+
+    updateHighScore(this.highScore);
   }
 
   playAgain() {
