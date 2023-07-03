@@ -41,9 +41,10 @@ class Game {
   play() {
     this.snake.create();
     this.apple.paint();
+    this.moveSnake();
   }
 
-  moveSnake(event) {
+  moveSnake(event = null) {
     if (!this.isGameOver) {
       if (this.interval) {
         clearInterval(this.interval);
@@ -114,6 +115,7 @@ class Game {
     this.apple.reset();
     updateScore(this.score);
     toggleGameOverMsg();
+    this.moveSnake();
   }
 
   createScoreSpan() {
@@ -131,7 +133,7 @@ class Game {
     canvas.setAttribute("height", "300");
     canvas.setAttribute("tabindex", "0");
 
-    canvas.addEventListener("keydown", this.moveSnake);
+    document.body.addEventListener("keydown", this.moveSnake);
 
     return canvas;
   }
