@@ -1,7 +1,10 @@
 :root {
   --green: #79be5b;
-  --light-black: #1e2c0f;
   --black: #0000;
+  --grey: rgb(115, 115, 115);
+  --dark-green: #77b85c;
+  --light-black: #1e2c0f;
+  --light-grey: rgb(208, 208, 208);
 }
 
 @font-face {
@@ -51,6 +54,8 @@ button {
   border: 4px double black;
   border-radius: 5px;
   font-family: "Press Start 2P", cursive;
+  font-size: 1.2rem;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
