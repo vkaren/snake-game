@@ -1,6 +1,7 @@
 import Snake from "@components/Snake";
 import Apple from "@components/Apple";
 import {
+  backToMenu,
   clearGameCanvas,
   updateScore,
   canvasElem,
@@ -10,13 +11,13 @@ import {
 import "./styles.css";
 
 class Game {
-  constructor({ speed }) {
+  constructor() {
     this.container = document.createElement("section");
     this.container.setAttribute("class", "game-section");
 
-    this.snake = new Snake({ defaultSize: 3 });
+    this.snake = null;
     this.apple = new Apple();
-    this.speed = speed;
+    this.speed = null;
     this.isGameOver = false;
     this.score = 0;
     this.highScore = localStorage.getItem("highScore") || 0;
@@ -38,7 +39,22 @@ class Game {
     return this.container;
   }
 
-  play() {
+  play(chosenLevel) {
+    switch (chosenLevel) {
+      case "easy":
+        this.speed = 200;
+        this.snake = new Snake({ defaultSize: 3 });
+        break;
+      case "normal":
+        this.speed = 150;
+        this.snake = new Snake({ defaultSize: 5 });
+        break;
+      case "hard":
+        this.speed = 100;
+        this.snake = new Snake({ defaultSize: 8 });
+        break;
+    }
+
     this.snake.create();
     this.apple.paint();
     this.moveSnake();
@@ -158,10 +174,15 @@ class Game {
     playAgainBtn.setAttribute("class", "game-msg-playBtn");
     playAgainBtn.textContent = "Play again";
 
+    const backToMenuBtn = document.createElement("button");
+    backToMenuBtn.setAttribute("class", "game-msg-backToMenu");
+    backToMenuBtn.textContent = "Choose another level";
+
     playAgainBtn.addEventListener("click", this.playAgain);
+    backToMenuBtn.addEventListener("click", backToMenu);
 
     highScoreP.append(highScoreVal);
-    gameOverMsg.append(gameOverP, highScoreP, playAgainBtn);
+    gameOverMsg.append(gameOverP, highScoreP, playAgainBtn, backToMenuBtn);
 
     return gameOverMsg;
   }

@@ -4,19 +4,20 @@
   position: relative;
 }
 
+/* Score */
 .game-score {
   position: absolute;
   top: -6rem;
   left: 3rem;
   font-size: 2rem;
 }
-
 .game-score::before {
   content: url("@icons/apple.png");
   position: relative;
   top: 5px;
 }
 
+/* Game canvas */
 .game-canvas {
   width: 90%;
   margin: 0 auto;
@@ -24,18 +25,23 @@
   border-radius: 5px;
 }
 
+/* Game Over Message */
 .game-msg {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: absolute;
   z-index: 10;
-  top: calc(45% - 80px);
-  left: calc(50% - 22.5%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 45%;
   height: 25%;
-  min-height: 160px;
+  min-height: 180px;
+  min-width: 200px;
+  margin: auto;
   text-align: center;
 }
 .game-msg.hidden {
@@ -44,11 +50,22 @@
 .game-msg--over {
   font-size: 2rem;
 }
-
 .game-msg--highScore {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  margin: 2rem 0;
+}
+.game-msg-playBtn {
+  margin: 1rem 0;
+}
+.game-msg-backToMenu {
+  background: transparent;
+  border: none;
+  font-size: 0.8rem;
+  line-height: 1.6rem;
+  text-decoration: underline;
 }
 
+/* Game move buttons */
 .game-btns {
   display: grid;
   grid-template-columns: repeat(3, 25%);
@@ -57,20 +74,16 @@
   justify-content: center;
   margin-top: 2rem;
 }
-
 .game-btns .moveUp {
   grid-column: 2/3;
 }
-
 .game-btns .moveDown {
   grid-column: 2/3;
   grid-row: 2/3;
 }
-
 .game-btns .moveLeft {
   grid-column: 1/2;
 }
-
 .game-btns .moveRight {
   grid-column: 3/4;
 }
