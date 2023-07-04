@@ -1,3 +1,4 @@
+import Menu from "@pages/Menu";
 import Game from "@pages/Game";
 
 const app = document.querySelector("#app");
@@ -7,20 +8,28 @@ let score;
 let highScore;
 let gameMsg;
 
-function playGame() {
-  const gamePage = new Game({ speed: 200 });
+function playGame(event) {
+  event.preventDefault();
 
-  app.replaceChildren(gamePage.render());
+  const form = document.querySelector(".menu-levelsForm");
+  const formData = new FormData(form);
+  const chosenLevel = formData.get("levelOption");
 
-  // Getting the canvas and other elements after rendering the game
-  canvasElem = document.querySelector(".game-canvas");
-  gameCanvas = canvasElem.getContext("2d");
-  score = document.querySelector(".game-score");
-  gameMsg = document.querySelector(".game-msg");
-  highScore = document.querySelector(".highScore-span");
+  if (chosenLevel) {
+    const gamePage = new Game();
 
-  // Creating the snake and the apple in canvas
-  gamePage.play();
+    app.replaceChildren(gamePage.render());
+
+    // Getting the canvas and other elements after rendering the game
+    canvasElem = document.querySelector(".game-canvas");
+    gameCanvas = canvasElem.getContext("2d");
+    score = document.querySelector(".game-score");
+    gameMsg = document.querySelector(".game-msg");
+    highScore = document.querySelector(".highScore-span");
+
+    // Creating the snake and the apple in canvas
+    gamePage.play(chosenLevel);
+  }
 }
 
 function fillGameCanvas({ color, x, y, width, height }) {
@@ -52,6 +61,12 @@ function toggleGameOverMsg() {
   }
 }
 
+function backToMenu() {
+  const menuPage = new Menu();
+
+  app.replaceChildren(menuPage.render());
+}
+
 export {
   app,
   canvasElem,
@@ -63,4 +78,5 @@ export {
   updateScore,
   updateHighScore,
   toggleGameOverMsg,
+  backToMenu,
 };
