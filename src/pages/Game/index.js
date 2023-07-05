@@ -23,9 +23,17 @@ class Game {
     this.highScore = localStorage.getItem("highScore") || 0;
     this.interval = null;
 
+    /* Move on mobile  */
+    this.touchStartX = 0;
+    this.touchStartY = 0;
+    this.touchEndX = 0;
+    this.touchEndY = 0;
+
     this.moveSnake = this.moveSnake.bind(this);
     this.paintCanvas = this.paintCanvas.bind(this);
     this.playAgain = this.playAgain.bind(this);
+    this.moveOnMobileStart = this.moveOnMobileStart.bind(this);
+    this.moveOnMobileEnd = this.moveOnMobileEnd.bind(this);
   }
 
   render() {
@@ -35,6 +43,8 @@ class Game {
     const gameButtons = this.createGameButtons();
 
     this.container.append(scoreSpan, canvas, gameOverMsg, gameButtons);
+
+    document.body.addEventListener("keydown", this.moveSnake);
 
     return this.container;
   }
@@ -57,15 +67,15 @@ class Game {
 
     this.snake.create();
     this.apple.paint();
-    this.moveSnake();
+    this.moveSnake(null, { moveTo: "moveUp" });
   }
 
-  moveSnake(event = null) {
+  moveSnake(event, { moveTo }) {
     if (!this.isGameOver) {
       if (this.interval) {
         clearInterval(this.interval);
       }
-      this.snake.move(event);
+      this.snake.move({ event, moveTo });
       this.paintCanvas();
       this.interval = setInterval(this.paintCanvas, this.speed);
     }
@@ -131,9 +141,38 @@ class Game {
     this.apple.reset();
     updateScore(this.score);
     toggleGameOverMsg();
-    this.moveSnake();
+    this.moveSnake(null, { moveTo: "moveUp" });
   }
 
+  /* Move on mobile */
+  moveOnMobileStart(event) {
+    this.touchStartX = event.changedTouches[0].screenX;
+    this.touchStartY = event.changedTouches[0].screenY;
+  }
+
+  moveOnMobileEnd(event) {
+    this.touchEndX = event.changedTouches[0].screenX;
+    this.touchEndY = event.changedTouches[0].screenY;
+
+    const x = Math.abs(this.touchStartX - this.touchEndX);
+    const y = Math.abs(this.touchStartY - this.touchEndY);
+
+    if (x > y) {
+      if (this.touchStartX < this.touchEndX) {
+        this.moveSnake(null, { moveTo: "moveRight" });
+      } else {
+        this.moveSnake(null, { moveTo: "moveLeft" });
+      }
+    } else if (y > x) {
+      if (this.touchStartY < this.touchEndY) {
+        this.moveSnake(null, { moveTo: "moveDown" });
+      } else {
+        this.moveSnake(null, { moveTo: "moveUp" });
+      }
+    }
+  }
+
+  /* Creating DOM Elements  */
   createScoreSpan() {
     const scoreSpan = document.createElement("span");
     scoreSpan.setAttribute("class", "game-score");
@@ -149,7 +188,12 @@ class Game {
     canvas.setAttribute("height", "300");
     canvas.setAttribute("tabindex", "0");
 
-    document.body.addEventListener("keydown", this.moveSnake);
+    canvas.addEventListener("touchstart", this.moveOnMobileStart, {
+      passive: true,
+    });
+    canvas.addEventListener("touchend", this.moveOnMobileEnd, {
+      passive: true,
+    });
 
     return canvas;
   }
