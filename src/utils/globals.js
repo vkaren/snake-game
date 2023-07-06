@@ -54,11 +54,7 @@ function updateHighScore(val) {
 }
 
 function toggleGameOverMsg() {
-  if (gameMsg.classList.contains("hidden")) {
-    gameMsg.classList.remove("hidden");
-  } else {
-    gameMsg.classList.add("hidden");
-  }
+  gameMsg.classList.toggle("hidden");
 }
 
 function backToMenu() {

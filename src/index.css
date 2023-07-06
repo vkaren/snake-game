@@ -1,3 +1,4 @@
+/*    Global styles    */
 :root {
   --green: #79be5b;
   --black: #0000;
@@ -25,7 +26,6 @@ html {
   font-size: 62.5%;
   font-family: "Press Start 2P", cursive;
 }
-
 body {
   background: var(--green);
   min-height: 100vh;
@@ -37,7 +37,6 @@ main {
   align-items: center;
   min-height: inherit;
 }
-
 section {
   width: 60vw;
   height: 60vw;
@@ -47,7 +46,6 @@ section {
   max-height: 500px;
   background: var(--green);
 }
-
 button {
   padding: 1rem;
   background: transparent;
@@ -58,7 +56,6 @@ button {
   text-transform: uppercase;
   cursor: pointer;
 }
-
 button:hover {
   transform: scale(1.05);
 }

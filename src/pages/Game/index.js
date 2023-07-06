@@ -70,7 +70,7 @@ class Game {
     this.moveSnake(null, { moveTo: "moveUp" });
   }
 
-  moveSnake(event, { moveTo }) {
+  moveSnake(event, { moveTo } = {}) {
     if (!this.isGameOver) {
       if (this.interval) {
         clearInterval(this.interval);
@@ -128,9 +128,8 @@ class Game {
     if (this.score > this.highScore) {
       this.highScore = this.score;
       localStorage.setItem("highScore", this.highScore);
+      updateHighScore(this.highScore);
     }
-
-    updateHighScore(this.highScore);
   }
 
   playAgain() {
@@ -212,7 +211,7 @@ class Game {
 
     const highScoreVal = document.createElement("span");
     highScoreVal.setAttribute("class", "highScore-span");
-    highScoreVal.textContent = "0";
+    highScoreVal.textContent = this.highScore;
 
     const playAgainBtn = document.createElement("button");
     playAgainBtn.setAttribute("class", "game-msg-playBtn");

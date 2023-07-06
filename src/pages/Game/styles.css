@@ -33,17 +33,19 @@
   align-items: center;
   position: absolute;
   z-index: 10;
-  top: 0;
+  top: -10%;
   bottom: 0;
   left: 0;
   right: 0;
-  width: 45%;
-  height: 25%;
-  min-height: 180px;
+  width: 88%;
+  height: 88%;
+  min-height: 200px;
   min-width: 200px;
   margin: auto;
   text-align: center;
+  backdrop-filter: blur(10px);
 }
+
 .game-msg.hidden {
   z-index: -10;
 }
