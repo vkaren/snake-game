@@ -187,12 +187,8 @@ class Game {
     canvas.setAttribute("height", "300");
     canvas.setAttribute("tabindex", "0");
 
-    canvas.addEventListener("touchstart", this.moveOnMobileStart, {
-      passive: true,
-    });
-    canvas.addEventListener("touchend", this.moveOnMobileEnd, {
-      passive: true,
-    });
+    canvas.addEventListener("touchstart", this.moveOnMobileStart);
+    canvas.addEventListener("touchend", this.moveOnMobileEnd);
 
     return canvas;
   }
