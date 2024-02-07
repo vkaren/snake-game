@@ -55,7 +55,7 @@ class Game {
             this.interval = setInterval(this.paintCanvas, this.speed);
           }
         }
-      }, 150);
+      }, 100);
     };
   }
 
