@@ -51,7 +51,7 @@ class Snake {
     } else if (event.type === "keydown" && validKeys[event.key]) {
       moveToVal = validKeys[event.key];
     } else if (event.type === "click") {
-      moveToVal = event.currentTarget.className;
+      moveToVal = event.target.className;
     }
 
     if (

@@ -1,15 +1,9 @@
+import { app } from "@app";
 import Snake from "@components/Snake";
 import Apple from "@components/Apple";
-import {
-  backToMenu,
-  clearGameCanvas,
-  updateScore,
-  canvasElem,
-  toggleGameOverMsg,
-  updateHighScore,
-} from "@utils/globals";
 import "./styles.css";
 
+// !!separate game logic from dom render
 class Game {
   constructor() {
     this.container = document.createElement("section");
@@ -44,7 +38,7 @@ class Game {
 
     this.container.append(scoreSpan, canvas, gameOverMsg, gameButtons);
 
-    document.body.addEventListener("keydown", this.moveSnake);
+    document.body.addEventListener("keydown", this.moveSnake());
 
     return this.container;
   }
@@ -67,22 +61,33 @@ class Game {
 
     this.snake.create();
     this.apple.paint();
-    this.moveSnake(null, { moveTo: "moveUp" });
+    this.moveSnake({ moveTo: "moveUp" })();
   }
 
-  moveSnake(event, { moveTo } = {}) {
-    if (!this.isGameOver) {
-      if (this.interval) {
-        clearInterval(this.interval);
+  moveSnake({ moveTo } = {}) {
+    let timer = null;
+
+    return (event) => {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
       }
-      this.snake.move({ event, moveTo });
-      this.paintCanvas();
-      this.interval = setInterval(this.paintCanvas, this.speed);
-    }
+
+      timer = setTimeout(() => {
+        if (!this.isGameOver) {
+          this.snake.move({ event, moveTo });
+
+          if (!this.interval) {
+            this.paintCanvas();
+            this.interval = setInterval(this.paintCanvas, this.speed);
+          }
+        }
+      }, 150);
+    };
   }
 
   paintCanvas() {
-    clearGameCanvas();
+    app.clearGameCanvas();
     this.snake.updatePosition();
     this.apple.paint();
     this.checkCollisionWithApple();
@@ -95,7 +100,7 @@ class Game {
       this.snake.head.position.y === this.apple.position.y
     ) {
       this.score++;
-      updateScore(this.score);
+      app.updateScoreElement(this.score); // !!
 
       this.snake.createCell(); // The snake grows
       this.apple.setNewPosition();
@@ -106,7 +111,7 @@ class Game {
     const snakeHead = this.snake.head;
     const snakeHeadPosition = snakeHead.position;
     const borderStart = 0;
-    const borderEnd = canvasElem.width - snakeHead.size.width;
+    const borderEnd = app.canvasElement.width - snakeHead.size.width;
 
     // If snake head collides with a border or with itself
     if (
@@ -119,8 +124,9 @@ class Game {
       this.isGameOver = true;
 
       clearInterval(this.interval);
+      this.interval = null;
       this.getHighScore();
-      toggleGameOverMsg();
+      app.toggleGameOverMsg();
     }
   }
 
@@ -128,19 +134,19 @@ class Game {
     if (this.score > this.highScore) {
       this.highScore = this.score;
       localStorage.setItem("highScore", this.highScore);
-      updateHighScore(this.highScore);
+      app.updateHighScoreElement(this.highScore); //!!
     }
   }
 
   playAgain() {
-    clearGameCanvas();
+    app.clearGameCanvas();
     this.score = 0;
     this.isGameOver = false;
     this.snake.reset();
     this.apple.reset();
-    updateScore(this.score);
-    toggleGameOverMsg();
-    this.moveSnake(null, { moveTo: "moveUp" });
+    app.updateScoreElement(this.score);
+    app.toggleGameOverMsg();
+    this.moveSnake({ moveTo: "moveUp" })();
   }
 
   /* Move on mobile */
@@ -158,15 +164,15 @@ class Game {
 
     if (x > y) {
       if (this.touchStartX < this.touchEndX) {
-        this.moveSnake(null, { moveTo: "moveRight" });
+        this.moveSnake({ moveTo: "moveRight" })();
       } else {
-        this.moveSnake(null, { moveTo: "moveLeft" });
+        this.moveSnake({ moveTo: "moveLeft" })();
       }
     } else if (y > x) {
       if (this.touchStartY < this.touchEndY) {
-        this.moveSnake(null, { moveTo: "moveDown" });
+        this.moveSnake({ moveTo: "moveDown" })();
       } else {
-        this.moveSnake(null, { moveTo: "moveUp" });
+        this.moveSnake({ moveTo: "moveUp" })();
       }
     }
   }
@@ -218,7 +224,7 @@ class Game {
     backToMenuBtn.textContent = "Choose another level";
 
     playAgainBtn.addEventListener("click", this.playAgain);
-    backToMenuBtn.addEventListener("click", backToMenu);
+    backToMenuBtn.addEventListener("click", app.backToMenu);
 
     highScoreP.append(highScoreVal);
     gameOverMsg.append(gameOverP, highScoreP, playAgainBtn, backToMenuBtn);
@@ -241,7 +247,7 @@ class Game {
 
       button.setAttribute("class", key);
       button.textContent = buttonsValue[key];
-      button.addEventListener("click", this.moveSnake);
+      button.addEventListener("click", this.moveSnake());
 
       container.append(button);
     }

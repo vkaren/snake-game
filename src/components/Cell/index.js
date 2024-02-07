@@ -1,9 +1,9 @@
-import { fillGameCanvas } from "@utils/globals";
+import { app } from "@app";
 
 class Cell {
-  constructor({ x, y }) {
-    this.position = { x, y };
-    this.defaultPosition = this.position;
+  constructor(defaultPosition = { x: 140, y: 140 }) {
+    this.position = defaultPosition;
+    this.defaultPosition = defaultPosition;
     this.size = {
       width: 20,
       height: 20,
@@ -12,11 +12,8 @@ class Cell {
   }
 
   paint() {
-    const { x, y } = this.position;
-    const { width, height } = this.size;
-
-    const fill = { color: this.color, x, y, width, height };
-    fillGameCanvas(fill);
+    const fill = { ...this.position, ...this.size, color: this.color };
+    app.fillGameCanvas(fill);
   }
 }
 

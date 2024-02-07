@@ -1,7 +1,7 @@
 import Menu from "@pages/Menu";
-import { app } from "@utils/globals";
+import { app } from "@app";
 import "./index.css";
 
 const menuPage = new Menu();
 
-app.append(menuPage.render());
+app.container.append(menuPage.render());

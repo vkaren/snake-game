@@ -20,18 +20,18 @@ module.exports = {
       "@fonts": path.resolve(__dirname, "src/assets/fonts/"),
       "@pages": path.resolve(__dirname, "src/pages/"),
       "@components": path.resolve(__dirname, "src/components/"),
-      "@utils": path.resolve(__dirname, "src/utils/"),
+      "@app": path.resolve(__dirname, "src/app/"),
     },
   },
   module: {
     rules: [
       {
-        test: /\.mjs|js$/,
+        test: /\.(?:js|mjs|cjs)$/,
         exclude: /node_modules/,
         use: {
-          loader: "buble-loader",
+          loader: "babel-loader",
           options: {
-            transforms: { asyncAwait: false },
+            presets: [["@babel/preset-env", { targets: "defaults" }]],
           },
         },
       },

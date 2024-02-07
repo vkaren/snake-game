@@ -1,4 +1,4 @@
-import { playGame } from "@utils/globals";
+import { app } from "@app";
 import snakeIcon from "@icons/snake.png";
 import "./styles.css";
 
@@ -72,7 +72,7 @@ class Menu {
     playBtn.setAttribute("type", "submit");
     playBtn.textContent = "Play";
 
-    playBtn.addEventListener("click", playGame);
+    playBtn.addEventListener("click", app.playGame);
 
     form.append(title, optionsContainer, playBtn);
 
