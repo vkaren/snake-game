@@ -3,14 +3,13 @@ import Cell from "@components/Cell";
 class SnakeCell extends Cell {
   constructor({ id, prevCell }) {
     super({
-      // Set position
-      x: prevCell ? prevCell.oldPosition.x : 140,
-      y: prevCell ? prevCell.oldPosition.y : 140,
+      x: prevCell?.oldPosition.x || 140,
+      y: prevCell?.oldPosition.y || 140,
     });
     this.id = id;
     this.oldPosition = {
-      x: this.position ? this.position.x : null,
-      y: this.position ? this.position.y : null,
+      x: this?.position.x || null,
+      y: this?.position.y || null,
     };
     this.nextCell = null;
     this.prevCell = prevCell;

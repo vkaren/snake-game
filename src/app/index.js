@@ -1,5 +1,5 @@
 import Menu from "@pages/Menu";
-import Game from "@pages/Game";
+import GameLayout from "@pages/GameLayout";
 
 class App {
   constructor() {
@@ -19,7 +19,7 @@ class App {
     const chosenLevel = formData.get("levelOption");
 
     if (chosenLevel) {
-      const gamePage = new Game();
+      const gamePage = new GameLayout();
 
       this.container.replaceChildren(gamePage.render());
 
@@ -31,7 +31,7 @@ class App {
       this.highScoreElement = document.querySelector(".highScore-span");
 
       // Creating the snake and the apple in canvas
-      gamePage.play(chosenLevel);
+      gamePage.start(chosenLevel);
     }
   };
 

@@ -37,8 +37,28 @@ class Snake {
   }
 
   move({ event, moveTo }) {
-    let moveToVal;
+    const moveToValue = this.getMoveToValue({ event, moveTo });
 
+    if (
+      !this.velocity.y &&
+      (moveToValue === "moveUp" || moveToValue === "moveDown")
+    ) {
+      const { height: val } = this.head.size;
+      const velocity = moveToValue === "moveDown" ? val : -val;
+
+      this.updateVelocity("y", velocity);
+    } else if (
+      !this.velocity.x &&
+      (moveToValue === "moveRight" || moveToValue === "moveLeft")
+    ) {
+      const { width: val } = this.head.size;
+      const velocity = moveToValue === "moveRight" ? val : -val;
+
+      this.updateVelocity("x", velocity);
+    }
+  }
+
+  getMoveToValue({ event, moveTo }) {
     const validKeys = {
       ArrowUp: "moveUp",
       ArrowDown: "moveDown",
@@ -47,29 +67,11 @@ class Snake {
     };
 
     if (!event) {
-      moveToVal = moveTo;
+      return moveTo;
     } else if (event.type === "keydown" && validKeys[event.key]) {
-      moveToVal = validKeys[event.key];
+      return validKeys[event.key];
     } else if (event.type === "click") {
-      moveToVal = event.target.className;
-    }
-
-    if (
-      !this.velocity.y &&
-      (moveToVal === "moveUp" || moveToVal === "moveDown")
-    ) {
-      const { height: val } = this.head.size;
-      const velocity = moveToVal === "moveDown" ? val : -val;
-
-      this.updateVelocity("y", velocity);
-    } else if (
-      !this.velocity.x &&
-      (moveToVal === "moveRight" || moveToVal === "moveLeft")
-    ) {
-      const { width: val } = this.head.size;
-      const velocity = moveToVal === "moveRight" ? val : -val;
-
-      this.updateVelocity("x", velocity);
+      return event.target.className;
     }
   }
 
