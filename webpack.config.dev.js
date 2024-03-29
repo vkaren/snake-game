@@ -11,7 +11,6 @@ module.exports = {
     clean: true,
   },
   mode: "development",
-  devtool: "inline-source-map",
   resolve: {
     extensions: [".js", ".css"],
     alias: {
